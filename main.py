@@ -67,11 +67,17 @@ def main(folder: Path):
     # видаляємо порожні папки-------------------
     for folder in parser.FOLDERS[::-1]:
         handle_folder(folder)
+        
+def start_func():
+    try:
+        folder = sys.argv[1]
+    except IndexError:
+        print('Enter valid path to the folder')
+    else:
+        scan_folder = Path(folder)
+        print(f'Start in folder {scan_folder.resolve()}')
+        main(scan_folder.resolve())
 
+# точка входу------------------------
 if __name__ == '__main__':
-    if sys.argv[1]:
-        folder_for_scan = Path(sys.argv[1])
-        print(f'Start in folder {folder_for_scan.resolve()}')
-        main(folder_for_scan.resolve())
-
-# TODO: запускаємо:  python3 main.py `назва_папки_для_сортування`
+    start_func():
